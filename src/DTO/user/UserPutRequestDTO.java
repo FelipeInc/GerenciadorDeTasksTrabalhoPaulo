@@ -1,4 +1,4 @@
-package DTO;
+package DTO.user;
 
 import domain.Task.Task;
 import domain.user.User;

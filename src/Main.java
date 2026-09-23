@@ -1,28 +1,33 @@
-import DTO.UserPostRequestDTO;
-import domain.user.User;
-import service.user.UserService;
+import controller.UserControler;
 
-import java.util.List;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
-        UserService userService = new UserService();
-        UserPostRequestDTO userPostRequestDTO = new UserPostRequestDTO("Felipe", "felipe@test.com", "123456");
+        boolean isOn = true;
 
-        User user = userService.saveUser(userPostRequestDTO);
+        UserControler userControler = new UserControler();
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println(user.toString());
 
-        System.out.println("______________________________________");
+        System.out.println("Bem-Vindo ao gerenciador de task");
+        do {
+            System.out.println("Digite um numero para acessar um servico:");
+            System.out.println("1-Criar usuario");
+            System.out.println("2-Buscar usuario pelo id");
+            System.out.println("3-Atualizar cadastro");
+            System.out.println("4-Deletar usuario");
+            System.out.println("5-Sair");
 
-        User userByID = userService.findUserByID(user.getIdUser());
-        System.out.println(userByID.toString());
-
-        System.out.println("________________________________________");
-
-        userService.deleteUser(userByID.getIdUser());
-        User userDeleted = userService.findUserByID(user.getIdUser());
-        System.out.println(userDeleted.toString());
+            int number = scanner.nextInt();
+            switch (number) {
+                case 1 -> userControler.register();
+                case 2 -> userControler.findUser();
+                case 5 -> isOn = false;
+                default -> System.out.println("Opcao invalida");
+            }
+        } while (isOn);
     }
+
 }

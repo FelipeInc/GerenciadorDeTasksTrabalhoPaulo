@@ -1,6 +1,6 @@
 package service.task;
 
-import DTO.TaskPostRequestDTO;
+import DTO.task.TaskPostRequestDTO;
 import domain.Task.Task;
 
 import java.util.ArrayList;

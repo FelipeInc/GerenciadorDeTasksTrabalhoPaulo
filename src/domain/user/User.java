@@ -6,8 +6,8 @@ import repository.UserRepository;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class User implements UserRepository {
-    private final int idUser = ThreadLocalRandom.current().nextInt(1,10000);
+public class User{
+    private int idUser = ThreadLocalRandom.current().nextInt(1, 21);
     private String nameUser;
     private String emailUser;
     private String password;
@@ -28,6 +28,10 @@ public class User implements UserRepository {
 
     public int getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getNameUser() {
@@ -70,15 +74,5 @@ public class User implements UserRepository {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return java.util.Objects.equals(idUser, user.idUser);
-}
-
-    @Override
-    public User findUser(User user) {
-        return user;
-    }
-
-    @Override
-    public User save(User user) {
-        return user;
     }
 }

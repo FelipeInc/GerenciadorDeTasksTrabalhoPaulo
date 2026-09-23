@@ -1,35 +1,59 @@
 package service.user;
 
-import DTO.UserPostRequestDTO;
-import DTO.UserPutRequestDTO;
-import domain.Task.Task;
+import DTO.user.UserRegisterPostRequestDTO;
+import DTO.user.UserUpdatePutRequestDTO;
+import domain.exception.NotFoundException;
 import domain.user.User;
+import repository.UserRepositoryImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    List<User> usersDb = new ArrayList<>();
+    private final UserRepositoryImpl userRepository;
 
-    public User saveUser(UserPostRequestDTO userPostRequestDTO){
+    public UserService(UserRepositoryImpl userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void saveUser(List<User> usersDb, UserRegisterPostRequestDTO userPostRequestDTO) {
         User user = new User(
                 userPostRequestDTO.nameUser(),
                 userPostRequestDTO.emailUser(),
                 userPostRequestDTO.password()
         );
-        usersDb.add(user);
-        return user;
+        userRepository.save(usersDb, user);
     }
 
-    public User findUserByID(int id){
-        return usersDb.stream()
-                    .filter(user -> user.getIdUser() == id)
-                    .findFirst()
-                    .orElse(null);
+    public User findUserByIDOrThrowNotFoundException(List<User> usersDb, int id) {
+        User userById = userRepository.findUserById(usersDb, id);
+
+        if (userById == null) {
+            throw new NotFoundException("User not found");
+        }
+
+        return userById;
     }
 
-    public void deleteUser(int id){
-        User userToBeDeleted = findUserByID(id);
+    public void updateUser(List<User> usersDb, UserUpdatePutRequestDTO userUpdatePutRequestDTO) {
+        User userToBeUpdated = findUserByIDOrThrowNotFoundException(usersDb, userUpdatePutRequestDTO.idUser());
+
+        userToBeUpdated.setIdUser(userToBeUpdated.getIdUser());
+
+        if (userUpdatePutRequestDTO.emailUser() != null && !userUpdatePutRequestDTO.emailUser().isBlank()) {
+            userToBeUpdated.setEmailUser(userUpdatePutRequestDTO.emailUser());
+        }
+
+        if (userUpdatePutRequestDTO.nameUser() != null && !userUpdatePutRequestDTO.nameUser().isBlank()) {
+            userToBeUpdated.setNameUser(userUpdatePutRequestDTO.nameUser());
+        }
+
+        if (userUpdatePutRequestDTO.password() != null && !userUpdatePutRequestDTO.password().isBlank()) {
+            userToBeUpdated.setPassword(userUpdatePutRequestDTO.password());
+        }
+    }
+
+    public void deleteUser(List<User> usersDb, int id) {
+        User userToBeDeleted = findUserByIDOrThrowNotFoundException(usersDb, id);
         usersDb.remove(userToBeDeleted);
     }
 }
