@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class User{
-    private int idUser = ThreadLocalRandom.current().nextInt(1, 21);
+    private int idUser = ThreadLocalRandom.current().nextInt(1, 2);
     private String nameUser;
     private String emailUser;
     private String password;
