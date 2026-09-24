@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.Task.Task;
-import repository.UserRepository;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,13 +16,6 @@ public class User{
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.password = password;
-    }
-
-    public User(String nameUser, String emailUser, String password, List<Task> task) {
-        this.nameUser = nameUser;
-        this.emailUser = emailUser;
-        this.password = password;
-        this.task = task;
     }
 
     public int getIdUser() {
@@ -61,10 +53,10 @@ public class User{
     @Override
     public String toString() {
         return "User{" +
-                "idUser=" + idUser +
-                ", nameUser='" + nameUser + '\'' +
-                ", emailUser='" + emailUser + '\'' +
-                ", password='" + password + '\'' +
+                "idUser=" + getIdUser() +
+                ", nameUser='" + getNameUser() + '\'' +
+                ", emailUser='" + getEmailUser() + '\'' +
+                ", password='" + getPassword() + '\'' +
                 '}';
     }
 

@@ -1,5 +1,9 @@
 package menu;
 
+import menu.User.UserMenu;
+import menu.message.MenuMessage;
+import menu.task.TaskMenu;
+
 import java.util.Scanner;
 
 public class MainMenu {
@@ -11,8 +15,8 @@ public class MainMenu {
 
         switch (number) {
             case 1 -> UserMenu.displayMenuUser();
-//            case 2 ->
-            case 5 -> {
+            case 2 -> TaskMenu.displayMenuTask();
+            case 3 -> {
                 return false;
             }
             default -> System.out.println("Opcao invalida");

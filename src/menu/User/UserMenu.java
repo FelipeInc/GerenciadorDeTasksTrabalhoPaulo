@@ -1,6 +1,7 @@
-package menu;
+package menu.User;
 
-import controller.UserControler;
+import controller.user.UserControler;
+import menu.message.MenuMessage;
 
 import java.util.Scanner;
 

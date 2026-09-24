@@ -1,11 +1,10 @@
 package domain.Task;
 
 import domain.user.User;
-import repository.TaskRepository;
-import repository.UserRepository;
+import repository.task.TaskRepository;
 
 
-public class Task implements TaskRepository {
+public class Task{
     private User user;
     private String nameTask;
     private TaskStatus taskStatus;
@@ -40,8 +39,4 @@ public class Task implements TaskRepository {
         this.taskStatus = taskStatus;
     }
 
-    @Override
-    public Task saveTask(Task task) {
-        return task;
-    }
 }

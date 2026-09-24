@@ -4,9 +4,7 @@ import DTO.user.UserRegisterPostRequestDTO;
 import DTO.user.UserUpdatePutRequestDTO;
 import domain.exception.NotFoundException;
 import domain.user.User;
-import repository.UserRepositoryImpl;
-
-import java.util.List;
+import repository.user.UserRepositoryImpl;
 
 public class UserService {
     private final UserRepositoryImpl userRepository;
@@ -15,17 +13,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void saveUser(List<User> usersDb, UserRegisterPostRequestDTO userPostRequestDTO) {
+    public void saveUser(UserRegisterPostRequestDTO userPostRequestDTO) {
         User user = new User(
                 userPostRequestDTO.nameUser(),
                 userPostRequestDTO.emailUser(),
                 userPostRequestDTO.password()
         );
-        userRepository.save(usersDb, user);
+        userRepository.save(user);
     }
 
-    public User findUserByIDOrThrowNotFoundException(List<User> usersDb, int id) {
-        User userById = userRepository.findUserById(usersDb, id);
+    public User findUserByIDOrThrowNotFoundException(int id) {
+        User userById = userRepository.findUserById(id);
 
         if (userById == null) {
             throw new NotFoundException("User not found");
@@ -34,8 +32,8 @@ public class UserService {
         return userById;
     }
 
-    public void updateUser(List<User> usersDb, UserUpdatePutRequestDTO userUpdatePutRequestDTO) {
-        User userToBeUpdated = findUserByIDOrThrowNotFoundException(usersDb, userUpdatePutRequestDTO.idUser());
+    public void updateUser(UserUpdatePutRequestDTO userUpdatePutRequestDTO) {
+        User userToBeUpdated = findUserByIDOrThrowNotFoundException(userUpdatePutRequestDTO.idUser());
 
         userToBeUpdated.setIdUser(userToBeUpdated.getIdUser());
 
@@ -52,8 +50,8 @@ public class UserService {
         }
     }
 
-    public void deleteUser(List<User> usersDb, int id) {
-        User userToBeDeleted = findUserByIDOrThrowNotFoundException(usersDb, id);
-        usersDb.remove(userToBeDeleted);
+    public void deleteUser(int id) {
+        User userToBeDeleted = findUserByIDOrThrowNotFoundException(id);
+        userRepository.deleteUser(userToBeDeleted);
     }
 }

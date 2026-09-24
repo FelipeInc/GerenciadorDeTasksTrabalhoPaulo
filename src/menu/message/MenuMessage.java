@@ -1,4 +1,4 @@
-package menu;
+package menu.message;
 
 public class MenuMessage {
     public static void displayMainMenuMessage() {
@@ -24,6 +24,24 @@ public class MenuMessage {
                 ==============================
                 
                 1 - Criar usuário
+                2 - Buscar usuário por ID
+                3 - Atualizar cadastro
+                4 - Deletar usuário
+                5 - Voltar ao menu principal
+                
+                ==============================
+                Digite uma opção:
+                """);
+    }
+
+    public static void displayMenuTaskMessage() {
+        System.out.println("""
+                
+                ==============================
+                      SISTEMA DE TASKS
+                ==============================
+                
+                1 - Adicionar task
                 2 - Buscar usuário por ID
                 3 - Atualizar cadastro
                 4 - Deletar usuário

@@ -2,18 +2,23 @@ package service.task;
 
 import DTO.task.TaskPostRequestDTO;
 import domain.Task.Task;
+import repository.task.TaskRepository;
+import repository.task.TaskRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskService {
-    List<Task> taskList = new ArrayList<>();
+    private final TaskRepositoryImpl taskRepositoryImpl;
 
-    public Task saveTask(TaskPostRequestDTO taskPostRequestDTO){
+    public TaskService(TaskRepositoryImpl taskRepository){
+        this.taskRepositoryImpl = taskRepository;
+    }
+
+    public void saveTask(TaskPostRequestDTO taskPostRequestDTO){
         Task task = new Task(taskPostRequestDTO.user(),
                 taskPostRequestDTO.nameTask(), taskPostRequestDTO.taskStatus());
-        taskList.add(task);
-        return task;
+        taskRepositoryImpl.saveTask(task);
     }
 
 }
